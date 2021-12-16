@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: redis-prod
+  namespace: argo-system
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: argo-system
+    server: in-cluster
+  project: default
+  source:
+    path: helm-values/redis/
+    plugin:
+      env:
+        - name: CHART_VERSION
+          value: "10.5.7"
+        - name: VALUE_FILE_name
+          value: "prod.values.yaml"
+      name: helm-resolver
+    repoURL: https://github.com/hschoi1104/argo-rollout-test/
