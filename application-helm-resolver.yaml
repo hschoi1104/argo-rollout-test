@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: redis-prod
+  name: redis-p
   namespace: argo-system
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
+    server: https://kubernetes.default.svc
     namespace: argo-system
-    server: in-cluster
   project: default
   source:
     path: helm-values/redis/
@@ -16,7 +16,9 @@ spec:
       env:
         - name: CHART_VERSION
           value: "10.5.7"
-        - name: VALUE_FILE_name
+        - name: VALUE_FILE_NAME
           value: "prod.values.yaml"
+        - name: CHART_NAME
+          value: redis
       name: helm-resolver
     repoURL: https://github.com/hschoi1104/argo-rollout-test/

@@ -15,24 +15,11 @@ data:
         args: ["helm dependency build || true"]
       generate:
         command: ["/bin/sh", "-c"]
-        args: ["helm template ../../helm_base --name-template $ARGOCD_APP_NAME --include-crds > ../../helm_base/all.yml && kustomize build"]    
+        args: ["helm template ../../helm_base --name-template $ARGOCD_APP_NAME --include-crds > ../../helm_base/all.yml && kustomize build"]
     - name: helm-resolver
       init:
         command: [bash, -c]
         args: ["helm repo add test-repo https://hschoi1104.github.io/helm-chart/stable"]
       generate:
         command: [bash, -c]
-        args: ["helm template -n $ARGOCD_APP_NAMESPACE --values values.yaml $ARGOCD_APP_NAME <chart> --version CHART-VERSION"]
-    - name: myrepo-charts
-      init:
-        command: ["/bin/sh", "-c"]
-        args: 
-        - |
-          helm init --client-only --skip-refresh \
-          && helm repo rm stable \
-          && helm repo add test-repo https://hschoi1104.github.io/helm-chart/
-          && helm repo update \
-          && helm fetch --untar --untardir charts --version $CHART_VERSION myrepo/$CHART_NAME
-      generate:
-        command: [sh, -c]
-        args: ["helm template charts/$CHART_NAME -f $CHART_VALUES"]
+        args: ["helm template -n argo-system --values $VALUE_FILE_NAME $ARGOCD_APP_NAME redis --version $CHART_VERSION"]
