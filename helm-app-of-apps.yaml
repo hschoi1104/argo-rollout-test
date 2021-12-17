@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-app-of-apps
+  namespace: argo-system
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/hschoi1104/argo-rollout-test.git
+    targetRevision: HEAD
+    path: helm-app-of-apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo-system
