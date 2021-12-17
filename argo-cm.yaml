@@ -20,4 +20,4 @@ data:
           && helm fetch --untar --untardir charts --version $CHART_VERSION test-repo/$CHART_NAME
       generate:
         command: [bash, -c]
-        args: ["helm template -n argo-system --values $VALUE_FILE_NAME $ARGOCD_APP_NAME test-repo/redis --version $CHART_VERSION"]
+        args: ["helm template -n argo-system --values $VALUE_FILE_NAME $ARGOCD_APP_NAME test-repo/$CHART_NAME --version $CHART_VERSION"]
