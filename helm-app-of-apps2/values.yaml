@@ -1,6 +1,6 @@
 env: stage
 metadata:
-  namespace: argocd
+  namespace: argo-system
 spec:
   destination:
     server: https://kubernetes.default.svc
