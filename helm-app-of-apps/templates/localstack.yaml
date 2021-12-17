@@ -18,7 +18,7 @@ spec:
         - name: CHART_VERSION
           value: "10.5.7"
         - name: VALUE_FILE_NAME
-          value: `./{{ .Values.env }}/localstack-values.yaml`
+          value: `./stage/localstack-values.yaml`
         - name: CHART_NAME
           value: localstack
       name: helm-resolver

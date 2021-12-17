@@ -18,7 +18,7 @@ spec:
         - name: CHART_VERSION
           value: "10.5.7"
         - name: VALUE_FILE_NAME
-          value: "./{{ .Values.env }}/redis-values.yaml"
+          value: "./stage/redis-values.yaml"
         - name: CHART_NAME
           value: redis
       name: helm-resolver
