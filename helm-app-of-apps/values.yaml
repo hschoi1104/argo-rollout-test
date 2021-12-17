@@ -1,3 +1,4 @@
+env: stage
 metadata:
   namespace: argocd
 spec:

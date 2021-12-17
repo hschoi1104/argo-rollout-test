@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: redis-stage
+  name: localstack-
   namespace: argo-system
   finalizers:
   - resources-finalizer.argocd.argoproj.io
@@ -18,7 +18,7 @@ spec:
         - name: CHART_VERSION
           value: "10.5.7"
         - name: VALUE_FILE_NAME
-          value: "./{{ .Values.env }}/redis-values.yaml"
+          value: `./{{ .Values.env }}/localstack-values.yaml`
         - name: CHART_NAME
-          value: redis
+          value: localstack
       name: helm-resolver
