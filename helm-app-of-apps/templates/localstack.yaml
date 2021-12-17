@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: localstack-stage
+  namespace: argo-system
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.env }}
+  project: default
+  source:
+    repoURL: https://github.com/hschoi1104/helm-chart/
+    path: values
+    plugin:
+      env:
+        - name: CHART_VERSION
+          value: "0.3.7"
+        - name: VALUE_FILE_NAME
+          value: `./stage/localstack-values.yaml`
+        - name: CHART_NAME
+          value: localstack
+      name: helm-resolver
