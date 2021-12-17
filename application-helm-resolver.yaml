@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: redis-p
+  name: redis-stage
   namespace: argo-system
   finalizers:
   - resources-finalizer.argocd.argoproj.io
@@ -11,14 +11,14 @@ spec:
     namespace: argo-system
   project: default
   source:
-    path: helm-values/redis/
+    repoURL: https://github.com/hschoi1104/helm-chart/
+    path: values
     plugin:
       env:
         - name: CHART_VERSION
           value: "10.5.7"
         - name: VALUE_FILE_NAME
-          value: "prod.values.yaml"
+          value: "./stage/redis-values.yaml"
         - name: CHART_NAME
           value: redis
       name: helm-resolver
-    repoURL: https://github.com/hschoi1104/argo-rollout-test/

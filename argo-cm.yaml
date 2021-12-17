@@ -9,17 +9,15 @@ metadata:
     app.kubernetes.io/part-of: argocd
 data:
   configManagementPlugins: |
-    - name: kustomized-helm
-      init:
-        command: ["/bin/sh", "-c"]
-        args: ["helm dependency build || true"]
-      generate:
-        command: ["/bin/sh", "-c"]
-        args: ["helm template ../../helm_base --name-template $ARGOCD_APP_NAME --include-crds > ../../helm_base/all.yml && kustomize build"]
     - name: helm-resolver
       init:
         command: [bash, -c]
-        args: ["helm repo add test-repo https://hschoi1104.github.io/helm-chart/stable"]
+        args: 
+        - |
+          helm repo rm test-repo \
+          && helm repo add test-repo https://hschoi1104.github.io/helm-chart/stable \
+          && helm repo update \
+          && helm fetch --untar --untardir charts --version $CHART_VERSION test-repo/$CHART_NAME
       generate:
         command: [bash, -c]
-        args: ["helm template -n argo-system --values $VALUE_FILE_NAME $ARGOCD_APP_NAME redis --version $CHART_VERSION"]
+        args: ["helm template -n argo-system --values $VALUE_FILE_NAME $ARGOCD_APP_NAME test-repo/redis --version $CHART_VERSION"]
