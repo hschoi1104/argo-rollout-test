@@ -1,0 +1,31 @@
+env: prod
+metadata:
+  namespace: argo-system
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo-system
+  
+
+localstack:
+  spec:
+    source:
+      repoURL: https://github.com/modusign/charts.git
+      targetRevision: main
+      path: charts/localstack
+      helm:
+        releaseName: localstack
+        valueFiles:
+        - ../../applications/localstack/prod-values.yaml
+
+redis:
+  spec:
+    source:
+      repoURL: https://github.com/modusign/charts.git
+      targetRevision: main
+      path: charts/redis
+      helm:
+        releaseName: redis
+        valueFiles:
+        - ../../applications/redis/prod-values.yaml

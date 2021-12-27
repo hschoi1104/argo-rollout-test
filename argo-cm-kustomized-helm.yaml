@@ -8,11 +8,12 @@ metadata:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd
 data:
-  configManagementPlugins: |
-    - name: kustomized-helm
-      init:
-        command: ["/bin/sh", "-c"]
-        args: ["helm dependency build || true"]
+  configManagementPlugins: |-
+    - name: argocd-vault-plugin
       generate:
-        command: ["/bin/sh", "-c"]
-        args: ["helm template ../../helm_base --name-template $ARGOCD_APP_NAME --include-crds > ../../helm_base/all.yml && kustomize build"]
+        command: ["argocd-vault-plugin"]
+        args: ["generate", "./"]
+    - name: argocd-vault-plugin-helm
+      generate:
+        command: ["sh", "-c"]
+        args: ["helm template . > all.yaml && argocd-vault-plugin generate all.yaml"]

@@ -1,0 +1,9 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: argocd-vault-plugin-credentials
+  namespace: argo-system
+type: Opaque
+stringData:
+  AVP_TYPE: awssecretsmanager
+  AWS_REGION: ap-northeast-2

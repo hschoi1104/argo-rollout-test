@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/hschoi1104/argo-rollout-test.git
+    repoURL: https://github.com/modusign/applications.git
     targetRevision: HEAD
-    path: helm-app-of-apps
+    path: example/helm-app-of-apps
   destination:
     server: https://kubernetes.default.svc
     namespace: argo-system
